@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TestAddElement</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <ul id="groceries">
+            <li>
+                eggs
+            </li>
+            <li>milk</li>
+            <li>quinoa</li>
+        </ul>
+        <script>
+            var newEl = document.createElement('li')
+            var newText = document.createTextNode("What ever you want.")
+            newEl.appendChild(newText)
+            var position = document.getElementsByTagName('ul') [0]
+            position.appendChild(newEl);
+            var removeEl = document.getElementsByTagName('li') [3];
+            var containerEl = removeEl.parentNode;
+            containerEl.removeChild(removeEl)
+
+        </script>
+        
+  
+    </body>
+</html>
