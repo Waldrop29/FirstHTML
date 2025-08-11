@@ -12,12 +12,23 @@
             <li>milk</li>
             <li>quinoa</li>
         </ul>
+        <button id="button" onclick(addNew)
         <script>
             var newEl = document.createElement('li')
             var newText = document.createTextNode('balsamic vinegar')
             newEl.appendChild(newText)
             var position = document.getElementsByTagName('ul') [0]
             position.appendChild(newEl)
+            var addNewText;
+            function addNew(addNewText) {
+            var newEl = document.createElement('li')
+            var newText = document.createTextNode('balsamic vinegar')
+            newEl.appendChild(newText)
+            var position = document.getElementsByTagName('ul') [0]
+            position.appendChild(newEl)
+       }
+
+
 
         </script>
         
