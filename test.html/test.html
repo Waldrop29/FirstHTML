@@ -6,32 +6,24 @@
     </head>
     <body>
         <ul id="groceries">
-            <li>
-                eggs
-            </li>
+            <li>eggs</li>
             <li>milk</li>
             <li>quinoa</li>
         </ul>
-        <button id="button" onclick(addNew)
+        <input type="text" id="itemInput" placeholder="Enter an item" />
+        <button id="button" onclick="addNew()">Add item</button>
         <script>
-            var newEl = document.createElement('li')
-            var newText = document.createTextNode('balsamic vinegar')
-            newEl.appendChild(newText)
-            var position = document.getElementsByTagName('ul') [0]
-            position.appendChild(newEl)
-            var addNewText;
-            function addNew(addNewText) {
-            var newEl = document.createElement('li')
-            var newText = document.createTextNode('balsamic vinegar')
-            newEl.appendChild(newText)
-            var position = document.getElementsByTagName('ul') [0]
-            position.appendChild(newEl)
-       }
-
-
-
+            function addNew() {
+                var itemValue = document.getElementById('itemInput').value.trim();
+                if (itemValue) {
+                    var newEl = document.createElement('li');
+                    var newText = document.createTextNode(itemValue);
+                    newEl.appendChild(newText);
+                    var position = document.getElementsByTagName('ul')[0];
+                    position.appendChild(newEl);
+                    document.getElementById('itemInput').value = '';
+                }
+            }
         </script>
-        
-  
     </body>
 </html>
