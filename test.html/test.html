@@ -5,6 +5,65 @@
         <meta charset="UTF-8">
     </head>
     <body>
+<style>
+    body {
+        background: #f8f9fa;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+        padding: 40px 0;
+        min-height: 100vh;
+    }
+    h1 {
+        color: #343a40;
+        margin-bottom: 24px;
+    }
+    #groceries {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        padding: 20px 32px;
+        min-width: 240px;
+        margin-bottom: 20px;
+        list-style: none;
+    }
+    #groceries li {
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        font-size: 1.1em;
+    }
+    #groceries li:last-child {
+        border-bottom: none;
+    }
+    #itemInput {
+        padding: 8px 12px;
+        border: 1px solid #bbb;
+        border-radius: 4px;
+        font-size: 1em;
+        margin-right: 8px;
+        width: 180px;
+        transition: border-color 0.2s;
+    }
+    #itemInput:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    #button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        padding: 8px 18px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    #button:hover {
+        background: #0056b3;
+    }
+</style>
         <ul id="groceries">
             <li>eggs</li>
             <li>milk</li>
