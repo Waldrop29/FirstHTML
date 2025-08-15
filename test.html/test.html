@@ -1,49 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Grocery List</title>
+    <meta charset="UTF-8">
+    <title>Grocery List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
+        html, body {
             background: #f8f9fa;
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 40px 0;
+            margin: 0; padding: 0;
             min-height: 100vh;
+            width: 100%;
+        }
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 32px 20px 24px 20px;
         }
         h1 {
+            text-align: center;
             color: #343a40;
             margin-bottom: 24px;
+            letter-spacing: 1px;
         }
-        #groceries {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            padding: 20px 32px;
-            min-width: 240px;
-            margin-bottom: 20px;
-            list-style: none;
-        }
-        #groceries li {
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 1.1em;
+        #inputRow {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #groceries li:last-child {
-            border-bottom: none;
+            gap: 8px;
+            margin-bottom: 20px;
         }
         #itemInput {
-            padding: 8px 12px;
+            flex: 1;
+            padding: 10px 12px;
             border: 1px solid #bbb;
             border-radius: 4px;
             font-size: 1em;
-            margin-right: 8px;
-            width: 180px;
             transition: border-color 0.2s;
         }
         #itemInput:focus {
@@ -55,7 +48,7 @@
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 8px 18px;
+            padding: 10px 16px;
             font-size: 1em;
             cursor: pointer;
             transition: background 0.2s;
@@ -63,13 +56,27 @@
         #button:hover {
             background: #0056b3;
         }
+        #groceries {
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+        #groceries li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        #groceries li:last-child {
+            border-bottom: none;
+        }
         .delete-btn {
             background: #dc3545;
             color: #fff;
             border: none;
             border-radius: 4px;
-            padding: 4px 10px;
-            font-size: 0.9em;
+            padding: 5px 12px;
+            font-size: 0.95em;
             cursor: pointer;
             margin-left: 12px;
             transition: background 0.2s;
@@ -77,42 +84,69 @@
         .delete-btn:hover {
             background: #b52a37;
         }
+        @media (max-width: 500px) {
+            .container {
+                margin: 0; min-height: 100vh; border-radius: 0; box-shadow: none;
+                padding: 20px 5px 16px 5px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Grocery List</h1>
-    <input type="text" id="itemInput" placeholder="Add a grocery item" />
-    <button id="button">Add item</button>
-    <ul id="groceries"></ul>
+    <div class="container">
+        <h1>Grocery List</h1>
+        <div id="inputRow">
+            <input type="text" id="itemInput" placeholder="Add a grocery item" autocomplete="off" />
+            <button id="button">Add</button>
+        </div>
+        <ul id="groceries"></ul>
+    </div>
     <script>
+        // Load from localStorage on startup
+        let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
+        const list = document.getElementById('groceries');
         const input = document.getElementById('itemInput');
         const button = document.getElementById('button');
-        const groceries = document.getElementById('groceries');
 
-        button.addEventListener('click', addItem);
-        input.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                addItem();
-            }
-        });
+        function renderList() {
+            list.innerHTML = '';
+            groceries.forEach((item, idx) => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                // Add delete button
+                const delBtn = document.createElement('button');
+                delBtn.textContent = 'Delete';
+                delBtn.className = 'delete-btn';
+                delBtn.onclick = function() {
+                    groceries.splice(idx, 1);
+                    saveAndRender();
+                };
+                li.appendChild(delBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('groceries', JSON.stringify(groceries));
+            renderList();
+        }
 
         function addItem() {
-            const value = input.value.trim();
-            if (value === '') return;
-            const li = document.createElement('li');
-            li.textContent = value;
-            // Create Delete Button
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.onclick = function() {
-                groceries.removeChild(li);
-            };
-            li.appendChild(deleteBtn);
-            groceries.appendChild(li);
+            const val = input.value.trim();
+            if (val === '') return;
+            groceries.push(val);
             input.value = '';
+            saveAndRender();
             input.focus();
         }
+
+        button.addEventListener('click', addItem);
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addItem();
+        });
+
+        // Initial render
+        renderList();
     </script>
 </body>
 </html>
