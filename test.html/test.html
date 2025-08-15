@@ -1,89 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>TestAddElement</title>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-     <h1>Grocery List</h1>
-<style>
-    body {
-        background: #f8f9fa;
-        font-family: Arial, sans-serif;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 0;
-        padding: 40px 0;
-        min-height: 100vh;
-    }
-    h1 {
-        color: #343a40;
-        margin-bottom: 24px;
-    }
-    #groceries {
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        padding: 20px 32px;
-        min-width: 240px;
-        margin-bottom: 20px;
-        list-style: none;
-    }
-    #groceries li {
-        padding: 8px 0;
-        border-bottom: 1px solid #eee;
-        font-size: 1.1em;
-    }
-    #groceries li:last-child {
-        border-bottom: none;
-    }
-    #itemInput {
-        padding: 8px 12px;
-        border: 1px solid #bbb;
-        border-radius: 4px;
-        font-size: 1em;
-        margin-right: 8px;
-        width: 180px;
-        transition: border-color 0.2s;
-    }
-    #itemInput:focus {
-        border-color: #007bff;
-        outline: none;
-    }
-    #button {
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        padding: 8px 18px;
-        font-size: 1em;
-        cursor: pointer;
-        transition: background 0.2s;
-    }
-    #button:hover {
-        background: #0056b3;
-    }
-</style>
-        <ul id="groceries">
-            <li>eggs</li>
-            <li>milk</li>
-            <li>quinoa</li>
-        </ul>
-        <input type="text" id="itemInput" placeholder="Enter an item" />
-        <button id="button" onclick="addNew()">Add item</button>
-        <script>
-            function addNew() {
-                var itemValue = document.getElementById('itemInput').value.trim();
-                if (itemValue) {
-                    var newEl = document.createElement('li');
-                    var newText = document.createTextNode(itemValue);
-                    newEl.appendChild(newText);
-                    var position = document.getElementsByTagName('ul')[0];
-                    position.appendChild(newEl);
-                    document.getElementById('itemInput').value = '';
-                }
+<head>
+    <title>Grocery List</title>
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 40px 0;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 24px;
+        }
+        #groceries {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 20px 32px;
+            min-width: 240px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+        #groceries li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #groceries li:last-child {
+            border-bottom: none;
+        }
+        #itemInput {
+            padding: 8px 12px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-right: 8px;
+            width: 180px;
+            transition: border-color 0.2s;
+        }
+        #itemInput:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        #button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 18px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #button:hover {
+            background: #0056b3;
+        }
+        .delete-btn {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 10px;
+            font-size: 0.9em;
+            cursor: pointer;
+            margin-left: 12px;
+            transition: background 0.2s;
+        }
+        .delete-btn:hover {
+            background: #b52a37;
+        }
+    </style>
+</head>
+<body>
+    <h1>Grocery List</h1>
+    <input type="text" id="itemInput" placeholder="Add a grocery item" />
+    <button id="button">Add item</button>
+    <ul id="groceries"></ul>
+    <script>
+        const input = document.getElementById('itemInput');
+        const button = document.getElementById('button');
+        const groceries = document.getElementById('groceries');
+
+        button.addEventListener('click', addItem);
+        input.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addItem();
             }
-        </script>
-    </body>
+        });
+
+        function addItem() {
+            const value = input.value.trim();
+            if (value === '') return;
+            const li = document.createElement('li');
+            li.textContent = value;
+            // Create Delete Button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.onclick = function() {
+                groceries.removeChild(li);
+            };
+            li.appendChild(deleteBtn);
+            groceries.appendChild(li);
+            input.value = '';
+            input.focus();
+        }
+    </script>
+</body>
 </html>
