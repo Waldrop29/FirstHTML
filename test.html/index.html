@@ -236,5 +236,63 @@
         // ...existing code...
     </script>
 <!-- ...existing code... -->
+ <!-- ...existing code... -->
+<script>
+    // Spell check using LanguageTool API with autocorrect
+    const warning = document.createElement('div');
+    warning.style.color = '#dc3545';
+    warning.style.fontSize = '0.97em';
+    warning.style.marginTop = '4px';
+    warning.style.minHeight = '18px';
+    input.parentNode.appendChild(warning);
+
+    let spellCheckTimeout;
+
+    input.addEventListener('input', function() {
+        clearTimeout(spellCheckTimeout);
+        warning.innerHTML = '';
+        const text = input.value.trim();
+        if (!text) return;
+        spellCheckTimeout = setTimeout(() => {
+            fetch('https://api.languagetool.org/v2/check', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `text=${encodeURIComponent(text)}&language=en-US`
+            })
+            .then(res => res.json())
+            .then(data => {
+                warning.innerHTML = '';
+                if (data.matches && data.matches.length > 0) {
+                    const first = data.matches[0];
+                    if (first.replacements && first.replacements.length > 0) {
+                        const suggestion = first.replacements[0].value;
+                        warning.innerHTML = `Did you mean "<b>${suggestion}</b>"? `;
+                        // Add autocorrect button
+                        const btn = document.createElement('button');
+                        btn.textContent = 'Autocorrect';
+                        btn.style.marginLeft = '8px';
+                        btn.style.background = '#007bff';
+                        btn.style.color = '#fff';
+                        btn.style.border = 'none';
+                        btn.style.borderRadius = '4px';
+                        btn.style.padding = '2px 10px';
+                        btn.style.cursor = 'pointer';
+                        btn.onclick = function() {
+                            input.value = suggestion;
+                            warning.textContent = '';
+                        };
+                        warning.appendChild(btn);
+                    } else {
+                        warning.textContent = 'Possible spelling error detected.';
+                    }
+                }
+            })
+            .catch(() => {
+                warning.textContent = '';
+            });
+        }, 600); // Wait 600ms after typing stops
+    });
+</script>
+<!-- ...existing code... -->
 </body>
 </html>
