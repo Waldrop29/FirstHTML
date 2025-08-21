@@ -90,6 +90,70 @@
                 padding: 20px 5px 16px 5px;
             }
         }
+               html, body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            width: 100%;
+        }
+        /* ...existing styles... */
+        /* Dark mode styles */
+        body.dark-mode {
+            background: #181a1b;
+        }
+        body.dark-mode .container {
+            background: #23272a;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+        }
+        body.dark-mode h1 {
+            color: #f1f3f4;
+        }
+        body.dark-mode #itemInput {
+            background: #23272a;
+            color: #f1f3f4;
+            border-color: #444;
+        }
+        body.dark-mode #itemInput:focus {
+            border-color: #66aaff;
+        }
+        body.dark-mode #button {
+            background: #66aaff;
+            color: #181a1b;
+        }
+        body.dark-mode #button:hover {
+            background: #3388cc;
+        }
+        body.dark-mode #groceries li {
+            border-bottom: 1px solid #333;
+            color: #f1f3f4;
+        }
+        body.dark-mode .delete-btn {
+            background: #b52a37;
+            color: #fff;
+        }
+        body.dark-mode .delete-btn:hover {
+            background: #dc3545;
+        }
+        /* Dark mode toggle button */
+        #darkModeToggle {
+            position: absolute;
+            top: 18px;
+            right: 24px;
+            background: #eee;
+            color: #222;
+            border: none;
+            border-radius: 20px;
+            padding: 7px 18px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        body.dark-mode #darkModeToggle {
+            background: #23272a;
+            color: #f1f3f4;
+            border: 1px solid #444;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +165,10 @@
         </div>
         <ul id="groceries"></ul>
     </div>
+    <button id="darkModeToggle">Dark Mode</button>
+
+        
+        
     <script>
         // Load from localStorage on startup
         let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
@@ -148,5 +216,24 @@
         // Initial render
         renderList();
     </script>
+    <!-- ...existing code... -->
+    <script>
+        // Dark mode toggle logic
+        const darkModeBtn = document.getElementById('darkModeToggle');
+        function setDarkMode(on) {
+            document.body.classList.toggle('dark-mode', on);
+            localStorage.setItem('darkMode', on ? '1' : '0');
+            darkModeBtn.textContent = on ? 'Light Mode' : 'Dark Mode';
+        }
+        // Load dark mode preference
+        setDarkMode(localStorage.getItem('darkMode') === '1');
+        darkModeBtn.onclick = () => setDarkMode(!document.body.classList.contains('dark-mode'));
+
+        // ...existing grocery list JS...
+        // Load from localStorage on startup
+        let newthing = JSON.parse(localStorage.getItem('groceries') || '[]');
+        // ...existing code...
+    </script>
+<!-- ...existing code... -->
 </body>
 </html>

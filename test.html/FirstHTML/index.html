@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery List App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body {
+            background: #e0f7fa;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            width: 100%;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 40px 30px 30px 30px;
+        }
+        h1 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            font-size: 2em;
+        }
+        #inputRow {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        #itemInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #00796b;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+        #itemInput:focus {
+            border-color: #004d40;
+            outline: none;
+        }
+        #button {
+            background: #00796b;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 18px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #button:hover {
+            background: #004d40;
+        }
+        #groceries {
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+        #groceries li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #b2dfdb;
+        }
+        #groceries li:last-child {
+            border-bottom: none;
+        }
+        .delete-btn {
+            background: #d32f2f;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 14px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: background 0.3s;
+        }
+        .delete-btn:hover {
+            background: #b71c1c;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 0; min-height: 100vh; border-radius: 0; box-shadow: none;
+                padding: 25px 10px 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Grocery List</h1>
+        <div id="inputRow">
+            <input type="text" id="itemInput" placeholder="Add a grocery item" autocomplete="off" />
+            <button id="button">Add</button>
+        </div>
+        <ul id="groceries"></ul>
+    </div>
+    <script>
+        // Load from localStorage on startup
+        let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
+        const list = document.getElementById('groceries');
+        const input = document.getElementById('itemInput');
+        const button = document.getElementById('button');
+
+        function renderList() {
+            list.innerHTML = '';
+            groceries.forEach((item, idx) => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                // Add delete button
+                const delBtn = document.createElement('button');
+                delBtn.textContent = 'Delete';
+                delBtn.className = 'delete-btn';
+                delBtn.onclick = function() {
+                    groceries.splice(idx, 1);
+                    saveAndRender();
+                };
+                li.appendChild(delBtn);
+                list.appendChild(li);
+            });
+        }
+
+        function saveAndRender() {
+            localStorage.setItem('groceries', JSON.stringify(groceries));
+            renderList();
+        }
+
+        function addItem() {
+            const val = input.value.trim();
+            if (val === '') return;
+            groceries.push(val);
+            input.value = '';
+            saveAndRender();
+            input.focus();
+        }
+
+        button.addEventListener('click', addItem);
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addItem();
+        });
+
+        // Initial render
+        renderList();
+    </script>
+</body>
+</html>
