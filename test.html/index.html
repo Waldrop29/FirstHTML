@@ -203,7 +203,7 @@
             groceries.forEach((item, idx) => {
                 const li = document.createElement('li');
                 li.textContent = item;
-                //add strikethrough on click without adding strikethrough to the delete button
+                //add strikethrough on click
                 li.onclick = function() {
                     if (li.style.textDecoration === 'line-through') {
                         li.style.textDecoration = 'none';
