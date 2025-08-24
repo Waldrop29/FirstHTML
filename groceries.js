@@ -53,12 +53,20 @@
         saveAndRender();
         input.focus();
     }
-        const delAllBtn = document.getElementById('del-all-btn')
+    //delete all button
+    const delAllBtn = document.getElementById('del-all-btn')
     delAllBtn.onclick = delAll
     function delAll() {
       groceries = []
       saveAndRender()
     }
+
+    //delete all with keyboard shortcut Ctrl+Shift+D
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.shiftKey && event.key === 'D') {
+            delAll()
+        }
+        }); 
 
 
     button.addEventListener('click', addItem);
