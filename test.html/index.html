@@ -150,6 +150,11 @@
             color: #f1f3f4;
             border: 1px solid #444;
         }
+        .del-all-btn {
+              font-size: 0.95em;
+              padding: 10px 10px;
+              background-color: #FF0000;
+            }
         /* Responsive styles */
         @media (max-width: 500px) {
             .container {
@@ -178,6 +183,41 @@
                 font-size: 1em;
             }
         }
+        #del-all-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 22px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+#del-all-btn:hover, #del-all-btn:active {
+    background: #b52a37;
+}
+body.dark-mode #del-all-btn {
+    background: #b52a37;
+    color: #fff;
+    border: 1px solid #444;
+}
+body.dark-mode #del-all-btn:hover, body.dark-mode #del-all-btn:active {
+    background: #dc3545;
+}
+/* Responsive */
+@media (max-width: 500px) {
+    #del-all-btn {
+        bottom: 12px;
+        left: 12px;
+        padding: 10px 16px;
+        font-size: 1em;
+    }
+}
     </style>
 </head>
 <body>
@@ -190,62 +230,81 @@
         <ul id="groceries"></ul>
     </div>
     <button id="darkModeToggle">Dark Mode</button>
+    <button id="del-all-btn">Delete All</button>
 
-    <script>
-        // Load from localStorage on startup
-        let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
-        const list = document.getElementById('groceries');
-        const input = document.getElementById('itemInput');
-        const button = document.getElementById('button');
+  <script>
+    // Load from localStorage on startup
+    let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
+    groceries = groceries.map(item =>
+        typeof item === 'string' ? { text: item, struck: false } : item
+    );
+    const list = document.getElementById('groceries');
+    const input = document.getElementById('itemInput');
+    const button = document.getElementById('button');
 
-        function renderList() {
-            list.innerHTML = '';
-            groceries.forEach((item, idx) => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                //add strikethrough on click
-                li.onclick = function() {
-                    if (li.style.textDecoration === 'line-through') {
-                        li.style.textDecoration = 'none';
-                    } else {
-                        li.style.textDecoration = 'line-through';
-                    }
-                };
-                // Add delete button
-                const delBtn = document.createElement('button');
-                delBtn.textContent = 'Delete';
-                delBtn.className = 'delete-btn';
-                delBtn.onclick = function() {
-                    groceries.splice(idx, 1);
-                    saveAndRender();
-                };
-                li.appendChild(delBtn);
-                list.appendChild(li);
-            });
-        }
+    function renderList() {
+        list.innerHTML = '';
+        groceries.forEach((item, idx) => {
+            const li = document.createElement('li');
 
-        function saveAndRender() {
-            localStorage.setItem('groceries', JSON.stringify(groceries));
-            renderList();
-        }
+            // Create a span for the text
+            const textSpan = document.createElement('span');
+            textSpan.textContent = item.text;
+            textSpan.style.textDecoration = item.struck ? 'line-through' : 'none';
 
-        function addItem() {
-            const val = input.value.trim();
-            if (val === '') return;
-            groceries.push(val);
-            input.value = '';
-            saveAndRender();
-            input.focus();
-        }
+            textSpan.onclick = function() {
+                groceries[idx].struck = !groceries[idx].struck;
+                saveAndRender();
+            };
 
-        button.addEventListener('click', addItem);
-        input.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') addItem();
+            // Add delete button
+            const delBtn = document.createElement('button');
+            delBtn.textContent = 'Delete';
+            delBtn.className = 'delete-btn';
+            delBtn.onclick = function(event) {
+                event.stopPropagation();
+                groceries.splice(idx, 1);
+                saveAndRender();
+            };
+
+            li.appendChild(textSpan);
+            li.appendChild(delBtn);
+            list.appendChild(li);
         });
+    }
 
-        // Initial render
+
+
+    function saveAndRender() {
+        localStorage.setItem('groceries', JSON.stringify(groceries));
         renderList();
-    </script>
+    }
+
+    function addItem() {
+        const val = input.value.trim();
+        if (val === '') return;
+        groceries.push({ text: val, struck: false });
+        input.value = '';
+        saveAndRender();
+        input.focus();
+    }
+    // Add "delete all" button
+    const delAllBtn = document.getElementById('del-all-btn')
+    delAllBtn.onclick = delAll
+    function delAll() {
+      groceries = []
+      saveAndRender()
+    }
+
+
+    button.addEventListener('click', addItem);
+    input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') addItem();
+    });
+
+    // Initial render
+    renderList();
+</script>
     <script>
         // Dark mode toggle logic
         const darkModeBtn = document.getElementById('darkModeToggle');
