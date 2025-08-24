@@ -272,12 +272,8 @@ body.dark-mode #del-all-btn:hover, body.dark-mode #del-all-btn:active {
             list.appendChild(li);
         });
     }
-    const delAllBtn = document.getElementById('del-all-btn')
-    delAllBtn.onclick = delAll
-    function delAll() {
-      groceries = []
-      saveAndRender()
-    }
+
+
 
     function saveAndRender() {
         localStorage.setItem('groceries', JSON.stringify(groceries));
@@ -292,6 +288,13 @@ body.dark-mode #del-all-btn:hover, body.dark-mode #del-all-btn:active {
         saveAndRender();
         input.focus();
     }
+        const delAllBtn = document.getElementById('del-all-btn')
+    delAllBtn.onclick = delAll
+    function delAll() {
+      groceries = []
+      saveAndRender()
+    }
+
 
     button.addEventListener('click', addItem);
     input.addEventListener('keypress', function(e) {
