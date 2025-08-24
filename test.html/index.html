@@ -199,33 +199,35 @@
         const button = document.getElementById('button');
 
         function renderList() {
-            list.innerHTML = '';
-            groceries.forEach((item, idx) => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                //add strikethrough on click
-                li.onclick = function() {
-                    if (li.style.textDecoration === 'line-through') {
-                        li.style.textDecoration = 'none';
-                    } else {
-                        li.style.textDecoration = 'line-through';
-                    }
-                    if (delBtn.textContent.style.textDecoration === 'line-through') {
-                        delBtn.textContent.style.textDecoration === 'line-through'
-                    }
-                };
-                // Add delete button
-                const delBtn = document.createElement('button');
-                delBtn.textContent = 'Delete';
-                delBtn.className = 'delete-btn';
-                delBtn.onclick = function() {
-                    groceries.splice(idx, 1);
-                    saveAndRender();
-                };
-                li.appendChild(delBtn);
-                list.appendChild(li);
-            });
-        }
+    list.innerHTML = '';
+    groceries.forEach((item, idx) => {
+        const li = document.createElement('li');
+
+        // Create a span for the text
+        const textSpan = document.createElement('span');
+        textSpan.textContent = item;
+
+        // Add strikethrough toggle only to the span
+        textSpan.onclick = function() {
+            textSpan.style.textDecoration =
+                textSpan.style.textDecoration === 'line-through' ? 'none' : 'line-through';
+        };
+
+        // Add delete button
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete';
+        delBtn.className = 'delete-btn';
+        delBtn.onclick = function(event) {
+            event.stopPropagation();
+            groceries.splice(idx, 1);
+            saveAndRender();
+        };
+
+        li.appendChild(textSpan);
+        li.appendChild(delBtn);
+        list.appendChild(li);
+    });
+}
 
         function saveAndRender() {
             localStorage.setItem('groceries', JSON.stringify(groceries));
