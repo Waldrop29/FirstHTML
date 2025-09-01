@@ -43,6 +43,7 @@
     function saveAndRender() {
         localStorage.setItem('groceries', JSON.stringify(groceries));
         renderList();
+        renderStruckList();
     }
 
     function addItem() {
@@ -57,7 +58,7 @@
     const delAllBtn = document.getElementById('del-all-btn')
     delAllBtn.onclick = delAll
     function delAll() {
-      groceries = []
+      groceries = groceries.filter(item => !item.struck);
       saveAndRender()
     }
 
@@ -67,8 +68,6 @@
             delAll()
         }
         }); 
-
-
     button.addEventListener('click', addItem);
     input.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') addItem();
@@ -87,3 +86,23 @@
         // Load dark mode preference
         setDarkMode(localStorage.getItem('darkMode') === '1');
         darkModeBtn.onclick = () => setDarkMode(!document.body.classList.contains('dark-mode'));
+        
+        function renderStruckList() {
+            const struckList = document.getElementById('struckList');
+            struckList.innerHTML = '';
+
+            // Only set dark mode styles if dark mode is enabled
+            const darkModeOn = document.body.classList.contains('dark-mode');
+            struckListContainer.style.backgroundColor = darkModeOn ? "#23272a" : "#f1f3f4";
+            struckText.style.color = darkModeOn ? "white" : "black";
+            struckList.style.color = darkModeOn ? "white" : "black";
+            struckList.style.align = "center";
+
+            // Get struck items
+            const struckItems = groceries.filter(item => item.struck);
+            struckItems.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item.text;
+                struckList.appendChild(li);
+            });
+        }
