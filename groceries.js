@@ -4,6 +4,10 @@
         typeof item === 'string' ? { text: item } : item
     );
     let struckGroceries = JSON.parse(localStorage.getItem('struckGroceries') || '[]');
+
+    // Undo history stacks
+    let groceriesHistory = [];
+    let struckGroceriesHistory = [];
     const list = document.getElementById('groceries');
     const input = document.getElementById('itemInput');
     const button = document.getElementById('button');
@@ -25,8 +29,10 @@
             delBtn.className = 'delete-btn';
             delBtn.onclick = function(event) {
                 event.stopPropagation();
-                groceries.splice(idx, 1);
-                saveAndRender();
+                if (confirm('Are you sure you want to delete this item?')) {
+                    groceries.splice(idx, 1);
+                    saveAndRender();
+                }
             };
             li.appendChild(textSpan);
             li.appendChild(delBtn);
@@ -37,10 +43,25 @@
 
 
     function saveAndRender() {
+        // Save current state to history before changing
+        groceriesHistory.push(JSON.stringify(groceries));
+        struckGroceriesHistory.push(JSON.stringify(struckGroceries));
         localStorage.setItem('groceries', JSON.stringify(groceries));
         localStorage.setItem('struckGroceries', JSON.stringify(struckGroceries));
         renderList();
         renderStruckList();
+    }
+
+    // Undo function
+    function undo() {
+        if (groceriesHistory.length > 0 && struckGroceriesHistory.length > 0) {
+            groceries = JSON.parse(groceriesHistory.pop());
+            struckGroceries = JSON.parse(struckGroceriesHistory.pop());
+            localStorage.setItem('groceries', JSON.stringify(groceries));
+            localStorage.setItem('struckGroceries', JSON.stringify(struckGroceries));
+            renderList();
+            renderStruckList();
+        }
     }
 
     function addItem() {
@@ -72,6 +93,12 @@
 
     // Initial render
     renderList();
+
+    // Add Undo button wiring
+    const undoBtn = document.getElementById('undo-btn');
+    if (undoBtn) {
+        undoBtn.onclick = undo;
+    }
     
         // Dark mode toggle logic
         const darkModeBtn = document.getElementById('darkModeToggle');
