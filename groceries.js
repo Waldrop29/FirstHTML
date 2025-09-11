@@ -1,8 +1,9 @@
  // Load from localStorage on startup
     let groceries = JSON.parse(localStorage.getItem('groceries') || '[]');
     groceries = groceries.map(item =>
-        typeof item === 'string' ? { text: item, struck: false } : item
+        typeof item === 'string' ? { text: item } : item
     );
+    let struckGroceries = JSON.parse(localStorage.getItem('struckGroceries') || '[]');
     const list = document.getElementById('groceries');
     const input = document.getElementById('itemInput');
     const button = document.getElementById('button');
@@ -11,18 +12,14 @@
         list.innerHTML = '';
         groceries.forEach((item, idx) => {
             const li = document.createElement('li');
-
-            // Create a span for the text
             const textSpan = document.createElement('span');
             textSpan.textContent = item.text;
-            textSpan.style.textDecoration = item.struck ? 'line-through' : 'none';
-
+            textSpan.style.textDecoration = 'none';
             textSpan.onclick = function() {
-                groceries[idx].struck = !groceries[idx].struck;
+                struckGroceries.push(item);
+                groceries.splice(idx, 1);
                 saveAndRender();
             };
-
-            // Add delete button
             const delBtn = document.createElement('button');
             delBtn.textContent = 'Delete';
             delBtn.className = 'delete-btn';
@@ -31,7 +28,6 @@
                 groceries.splice(idx, 1);
                 saveAndRender();
             };
-
             li.appendChild(textSpan);
             li.appendChild(delBtn);
             list.appendChild(li);
@@ -42,6 +38,7 @@
 
     function saveAndRender() {
         localStorage.setItem('groceries', JSON.stringify(groceries));
+        localStorage.setItem('struckGroceries', JSON.stringify(struckGroceries));
         renderList();
         renderStruckList();
     }
@@ -49,7 +46,7 @@
     function addItem() {
         const val = input.value.trim();
         if (val === '') return;
-        groceries.push({ text: val, struck: false });
+        groceries.push({ text: val });
         input.value = '';
         saveAndRender();
         input.focus();
@@ -57,10 +54,10 @@
     //delete all button
     const delAllBtn = document.getElementById('del-all-btn')
     delAllBtn.onclick = delAll
-    function delAll() {
-      groceries = groceries.filter(item => !item.struck);
-      saveAndRender()
-    }
+        function delAll() {
+            struckGroceries = [];
+            saveAndRender();
+        }
 
     //delete all with keyboard shortcut Ctrl+Shift+D
     document.addEventListener('keydown', function(event) {
@@ -90,17 +87,7 @@
         function renderStruckList() {
             const struckList = document.getElementById('struckList');
             struckList.innerHTML = '';
-
-            // Only set dark mode styles if dark mode is enabled
-            const darkModeOn = document.body.classList.contains('dark-mode');
-            struckListContainer.style.backgroundColor = darkModeOn ? "#23272a" : "#f1f3f4";
-            struckText.style.color = darkModeOn ? "white" : "black";
-            struckList.style.color = darkModeOn ? "white" : "black";
-            struckList.style.align = "center";
-
-            // Get struck items
-            const struckItems = groceries.filter(item => item.struck);
-            struckItems.forEach(item => {
+            struckGroceries.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item.text;
                 struckList.appendChild(li);

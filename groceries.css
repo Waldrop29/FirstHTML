@@ -250,8 +250,8 @@ body.dark-mode #del-all-btn:hover, body.dark-mode #del-all-btn:active {
         #struckList {
             list-style: none;
             padding: 0; margin: 0;
-            max-height: 200px;
-            overflow-y: auto;
+              max-height: none;
+              overflow: hidden;
         }
         #struckList li {
             padding: 10px 0;
