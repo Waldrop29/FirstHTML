@@ -7,6 +7,8 @@ This project is a simple Grocery List application that allows users to add and m
 - Add grocery items to the list.
 - Delete items from the list.
 - The list is saved in the browser's local storage, so it persists even after refreshing the page.
+- The list has an undo button to undo any accidental mis clicks.
+- The list has a dark mode button to change the theme to your preferences.
 
 ## Usage
 
@@ -17,7 +19,7 @@ This project is a simple Grocery List application that allows users to add and m
 
 ## Customization
 
-You can customize the appearance of the app by modifying the CSS styles in the `index.html` file. Consider changing:
+You can customize the appearance of the app by modifying the CSS styles in the `groceries.css` file. Consider changing:
 
 - Background color
 - Font styles and sizes

@@ -8,15 +8,20 @@
 </head>
 <body>
     <div class="container">
+        <button id="undo-btn">Undo</button>
         <h1>Grocery List</h1>
         <div id="inputRow">
             <input type="text" id="itemInput" placeholder="Add a grocery item" autocomplete="off" />
             <button id="button">Add</button>
         </div>
-        <ul id="groceries"></ul>
+    <ul id="groceries"></ul>
+    <button id="del-all-btn">Delete All</button>
+    </div>
+    <div id="struckListContainer">
+        <h2 id="struckText">Struck Through Items</h2>
+        <ul id="struckList"></ul>
     </div>
     <button id="darkModeToggle">Dark Mode</button>
-    <button id="del-all-btn">Delete All</button>
     <script src="groceries.js"></script>
 </body>
 </html>
