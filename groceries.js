@@ -23,6 +23,13 @@
                 struckGroceries.push(item);
                 groceries.splice(idx, 1);
                 saveAndRender();
+                // Animate the newly added struck item
+                setTimeout(() => {
+                    const struckList = document.getElementById('struckList');
+                    if (struckList && struckList.lastChild) {
+                        struckList.lastChild.classList.add('struck-animate');
+                    }
+                }, 50);
             };
             const delBtn = document.createElement('button');
             delBtn.textContent = 'Delete';
@@ -64,7 +71,7 @@
         }
     }
 
-    function addItem() {
+    function checkList() {
         const val = input.value.trim();
         if (val === '') return;
         groceries.push({ text: val });
@@ -86,9 +93,9 @@
             delAll()
         }
         }); 
-    button.addEventListener('click', addItem);
+    button.addEventListener('click', checkList);
     input.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') addItem();
+        if (e.key === 'Enter') checkList();
     });
 
     // Initial render
