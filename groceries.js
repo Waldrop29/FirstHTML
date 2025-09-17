@@ -14,14 +14,22 @@
 
     function renderList() {
         list.innerHTML = '';
-        groceries.forEach((item, idx) => {
+        groceries.forEach((item) => {
             const li = document.createElement('li');
             const textSpan = document.createElement('span');
             textSpan.textContent = item.text;
             textSpan.style.textDecoration = 'none';
+            if (item.struck) {
+                li.classList.add("fade-in");
+                struckList.appendChild(li);
+                } else {
+                li.classList.add("fade-in"); // ← Add this line
+                list.appendChild(li);
+            }
+
             textSpan.onclick = function() {
                 struckGroceries.push(item);
-                groceries.splice(idx, 1);
+                groceries = groceries.filter(g => g !== item);
                 saveAndRender();
                 // Animate the newly added struck item
                 setTimeout(() => {
@@ -37,7 +45,21 @@
             delBtn.onclick = function(event) {
                 event.stopPropagation();
                 if (confirm('Are you sure you want to delete this item?')) {
-                    groceries.splice(idx, 1);
+                    function deleteItem(index) {
+                    const listItems = document.querySelectorAll("li");
+                    const li = listItems[index];
+
+                    li.classList.add("fade-out");
+
+                    // Wait for animation to finish before removing
+                    setTimeout(() => {
+                        groceries.splice(index, 1);
+                        saveGroceries(groceries);
+                        renderGroceries();
+                    }, 300); // Match animation duration
+                    }
+
+                    groceries = groceries.filter(g => g !== item);
                     saveAndRender();
                 }
             };
