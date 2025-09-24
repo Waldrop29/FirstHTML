@@ -17,6 +17,10 @@ This project is a simple Grocery List application that allows users to add and m
 3. Click the "Add" button or press the "Enter" key to add the item to the list.
 4. To remove an item, click the "Delete" button next to the item.
 
+## Animation
+- Has user freindly animation that makes using the app all the more fun
+- Feel free to customize the animation.
+
 ## Customization
 
 You can customize the appearance of the app by modifying the CSS styles in the `groceries.css` file. Consider changing:
@@ -25,5 +29,6 @@ You can customize the appearance of the app by modifying the CSS styles in the `
 - Font styles and sizes
 - Button colors and hover effects
 - Layout properties for a different look and feel
+- You can enhance the animation if you want to
 
 Feel free to explore and enhance the application further!
