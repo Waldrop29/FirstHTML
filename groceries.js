@@ -57,6 +57,7 @@
                         saveGroceries(groceries);
                         renderGroceries();
                     }, 300); // Match animation duration
+                    deleteItem(index)
                     }
 
                     groceries = groceries.filter(g => g !== item);
@@ -67,6 +68,12 @@
             li.appendChild(delBtn);
             list.appendChild(li);
         });
+        if (groceries.length === 0) {
+            itemInput.placeholder = "Nothing yet! Add something tasty!";
+            } else {
+            itemInput.placeholder = "Add a grocery item";
+        }
+
     }
 
 
