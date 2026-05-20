@@ -270,3 +270,6 @@ window.addEventListener("DOMContentLoaded", () => {
     // *initial render*
     saveAndRender(false);
 });
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js');
+}
