@@ -116,6 +116,7 @@ html, body {
     padding: 14px 0;
     border-bottom: 1px solid #eee;
     font-size: 1.1em;
+    cursor: pointer;
 }
 
 /*(buttons)*/
@@ -336,4 +337,10 @@ body.dark-mode #darkModeToggle {
         bottom: 12px;
         right: 12px;
     }
+}
+body, .container, #struckListContainer {
+    transition: background 0.3s, color 0.3s;
+}
+#struckList li:hover {
+    opacity: 0.8;
 }
