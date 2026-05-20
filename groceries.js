@@ -271,5 +271,5 @@ window.addEventListener("DOMContentLoaded", () => {
     saveAndRender(false);
 });
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js');
+  navigator.serviceWorker.register('/Pantry-Planner/sw.js');
 }
