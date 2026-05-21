@@ -8,6 +8,7 @@
   "background_color": "#f8f9fa",
   "theme_color": "#007bff",
   "orientation": "portrait",
+  "id": "https://waldrop29.github.io/Pantry-Planner/",
   "icons": [
     {
       "src": "icon-192.png",
