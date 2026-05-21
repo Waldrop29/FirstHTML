@@ -31,7 +31,7 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Fetch: stale‑while‑revalidate strategy
+// Fetch: stale‑while‑revalidate with safe caching
 self.addEventListener("fetch", (event) => {
   const request = event.request;
 
@@ -39,15 +39,26 @@ self.addEventListener("fetch", (event) => {
     caches.match(request).then((cachedResponse) => {
       const fetchPromise = fetch(request)
         .then((networkResponse) => {
-          // Update cache with fresh version
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, networkResponse.clone());
-          });
+          // Only cache valid, cloneable responses
+          if (
+            networkResponse &&
+            networkResponse.status === 200 &&
+            networkResponse.type === "basic"
+          ) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+
           return networkResponse;
         })
         .catch(() => {
           // Offline fallback
-          return cachedResponse || caches.match("/Pantry-Planner/index.html");
+          return (
+            cachedResponse ||
+            caches.match("/Pantry-Planner/index.html")
+          );
         });
 
       // Return cached version immediately if available
