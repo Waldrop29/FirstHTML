@@ -1,7 +1,7 @@
 {
   "name": "Pantry Planner",
   "short_name": "Pantry",
-  "description": "A fast, simple grocery list app with dark mode and offline support.",
+  "description": "A fast, simple grocery list app with dark mode and offline support. ",
   "start_url": "https://waldrop29.github.io/Pantry-Planner/",
   "scope": "https://waldrop29.github.io/Pantry-Planner/",
   "display": "standalone",
