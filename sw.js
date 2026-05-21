@@ -1,14 +1,12 @@
 const CACHE_NAME = "pantry-cache-v2";
-const APP_PATH = "/Pantry-Planner";
 
 const ASSETS = [
-  `${APP_PATH}/`,
-  `${APP_PATH}/index.html`,
-  `${APP_PATH}/manifest.json`,
-  `${APP_PATH}/groceries.js`,
-  `${APP_PATH}/groceries.css`,
-  `${APP_PATH}/icon-192.png`,
-  `${APP_PATH}/icon-512.png`
+  "/Pantry-Planner/index.html",
+  "/Pantry-Planner/manifest.json",
+  "/Pantry-Planner/groceries.js",
+  "/Pantry-Planner/groceries.css",
+  "/Pantry-Planner/icon-192.png",
+  "/Pantry-Planner/icon-512.png"
 ];
 
 // Install: cache essential files
@@ -49,7 +47,7 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(() => {
           // Offline fallback
-          return cachedResponse || caches.match(`${APP_PATH}/index.html`);
+          return cachedResponse || caches.match("/Pantry-Planner/index.html");
         });
 
       // Return cached version immediately if available
