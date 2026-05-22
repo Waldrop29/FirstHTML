@@ -2,5 +2,12 @@
 android/
 build/
 .gradle/
+.bundle/
+capture/
 *.apk
 *.aab
+
+# Ignore Bubblewrap configuration files
+twa-manifest.json
+gradlew
+gradlew.bat
