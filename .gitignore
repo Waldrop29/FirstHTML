@@ -1,0 +1,6 @@
+# Ignore Bubblewrap Android build folders
+android/
+build/
+.gradle/
+*.apk
+*.aab
