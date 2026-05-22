@@ -20,3 +20,6 @@ gradlew.bat
 app/
 .gradle/
 gradle/
+
+# Ignore files not ignored by above code
+problems-report.html
