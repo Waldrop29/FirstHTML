@@ -1,13 +1,18 @@
-# Ignore Bubblewrap Android build folders
-android/
-build/
-.gradle/
-.bundle/
-capture/
+# Ignore the private Android signing key
+*.keystore
+
+# Ignore root-level Gradle and Android project files
+build.gradle
+settings.gradle
+gradle.properties
+manifest-checksum.txt
+twa-manifest.json
+store_icon.png
+
+# Ignore build artifacts and cache files
 *.apk
 *.aab
+*.idsig
 
-# Ignore Bubblewrap configuration files
-twa-manifest.json
-gradlew
-gradlew.bat
+# Ignore the entire Android app source folder structure
+app/
