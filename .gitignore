@@ -1,18 +1,7 @@
-# Ignore the private Android signing key
-*.keystore
+# Ignore Gradle wrapper scripts
+gradlew
+gradlew.bat
 
-# Ignore root-level Gradle and Android project files
-build.gradle
-settings.gradle
-gradle.properties
-manifest-checksum.txt
-twa-manifest.json
-store_icon.png
-
-# Ignore build artifacts and cache files
-*.apk
-*.aab
-*.idsig
-
-# Ignore the entire Android app source folder structure
-app/
+# Ignore Gradle wrapper and cache directories
+.gradle/
+gradle/
