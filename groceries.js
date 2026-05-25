@@ -32,11 +32,30 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    // *unit list*
+    const UNIT_LIST = [
+        "packets", "cartons", "lbs", "oz", "cups",
+        "tbsp", "tsp", "gallons", "liters",
+        "bags", "bottles", "jars", "cans"
+    ];
+
     // *load saved lists*
     let groceries = JSON.parse(localStorage.getItem("groceries") || "[]")
-        .map(item => (typeof item === "string" ? { text: item } : item));
+        .map(item => {
+            if (typeof item === "string") {
+                return { text: item, qtyNumber: 1, qtyUnit: "packets" };
+            }
+            if (item.qtyNumber === undefined) item.qtyNumber = 1;
+            if (item.qtyUnit === undefined) item.qtyUnit = "packets";
+            return item;
+        });
 
-    let struckGroceries = JSON.parse(localStorage.getItem("struckGroceries") || "[]");
+    let struckGroceries = JSON.parse(localStorage.getItem("struckGroceries") || "[]")
+        .map(item => {
+            if (item.qtyNumber === undefined) item.qtyNumber = 1;
+            if (item.qtyUnit === undefined) item.qtyUnit = "packets";
+            return item;
+        });
 
     // *history stacks*
     let groceriesHistory = [];
@@ -88,7 +107,12 @@ window.addEventListener("DOMContentLoaded", () => {
         if (!val) return;
 
         pushHistory();
-        groceries.push({ text: val });
+        groceries.push({
+            text: val,
+            qtyNumber: 1,
+            qtyUnit: "packets"
+        });
+
         input.value = "";
         saveAndRender(false);
         input.focus();
@@ -99,6 +123,11 @@ window.addEventListener("DOMContentLoaded", () => {
         list.innerHTML = "";
 
         groceries.forEach((item, idx) => {
+
+            // ensure backward compatibility
+            if (item.qtyNumber === undefined) item.qtyNumber = 1;
+            if (item.qtyUnit === undefined) item.qtyUnit = "packets";
+
             const li = document.createElement("li");
             li.classList.add("fade-in");
 
@@ -118,6 +147,42 @@ window.addEventListener("DOMContentLoaded", () => {
                         struckList.lastChild.classList.add("struck-animate");
                     }
                 }, 30);
+            });
+
+            // --- quantity number dropdown ---
+            const qtyNumber = document.createElement("select");
+            qtyNumber.className = "qty-select";
+
+            for (let i = 1; i <= 10; i++) {
+                const opt = document.createElement("option");
+                opt.value = i;
+                opt.textContent = i;
+                if (item.qtyNumber === i) opt.selected = true;
+                qtyNumber.appendChild(opt);
+            }
+
+            qtyNumber.addEventListener("change", () => {
+                pushHistory();
+                groceries[idx].qtyNumber = parseInt(qtyNumber.value);
+                saveAndRender(false);
+            });
+
+            // --- quantity unit dropdown ---
+            const qtyUnit = document.createElement("select");
+            qtyUnit.className = "qty-select";
+
+            UNIT_LIST.forEach(unit => {
+                const opt = document.createElement("option");
+                opt.value = unit;
+                opt.textContent = unit;
+                if (item.qtyUnit === unit) opt.selected = true;
+                qtyUnit.appendChild(opt);
+            });
+
+            qtyUnit.addEventListener("change", () => {
+                pushHistory();
+                groceries[idx].qtyUnit = qtyUnit.value;
+                saveAndRender(false);
             });
 
             // *edit button*
@@ -189,7 +254,10 @@ window.addEventListener("DOMContentLoaded", () => {
                 saveAndRender(false);
             });
 
+            // append everything
             li.appendChild(textSpan);
+            li.appendChild(qtyNumber);
+            li.appendChild(qtyUnit);
             li.appendChild(editBtn);
             li.appendChild(delBtn);
             list.appendChild(li);
@@ -207,7 +275,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         struckGroceries.forEach((item, idx) => {
             const li = document.createElement("li");
-            li.textContent = item.text;
+            li.textContent = `${item.qtyNumber} ${item.qtyUnit} ${item.text}`;
 
             li.addEventListener("click", () => {
                 pushHistory();
@@ -270,6 +338,7 @@ window.addEventListener("DOMContentLoaded", () => {
     // *initial render*
     saveAndRender(false);
 });
+
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/Pantry-Planner/sw.js');
 }
