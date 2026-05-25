@@ -1,0 +1,25 @@
+# Ignore the private Android signing key
+*.keystore
+
+# Ignore root-level Gradle and Android project files
+build.gradle
+settings.gradle
+gradle.properties
+manifest-checksum.txt
+twa-manifest.json
+store_icon.png
+gradlew
+gradlew.bat
+
+# Ignore build artifacts and cache files
+*.apk
+*.aab
+*.idsig
+
+# Ignore the entire Android app source folder and Gradle cache folders
+app/
+.gradle/
+gradle/
+
+# Ignore files not ignored by above code
+problems-report.html
