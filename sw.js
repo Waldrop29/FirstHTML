@@ -1,6 +1,7 @@
 const CACHE_NAME = "pantry-cache-v3";
 
 const ASSETS = [
+  "/Pantry-Planner/",
   "/Pantry-Planner/index.html",
   "/Pantry-Planner/manifest.json",
   "/Pantry-Planner/groceries.js",
