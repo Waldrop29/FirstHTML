@@ -34,7 +34,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     // *unit list*
     const UNIT_LIST = [
-        "packets", "cartons", "lbs", "oz", "cups",
+        "packets", "cartons", "lbs", "oz", "doz", "cups",
         "tbsp", "tsp", "gallons", "liters",
         "bags", "bottles", "jars", "cans"
     ];
