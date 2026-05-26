@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Pantry Planner</title>
-    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
-    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="groceries.css">
+  <meta charset="UTF-8">
+  <title>Pantry Planner</title>
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="groceries.css">
 </head>
 <body>
-    <h1 id="pantryPlanner">Pantry Planner</h1>
-    <div class="container">
-        <button id="undo-btn">Undo</button>
-        <h2 class="section-title">Main List</h2>
-        <div id="inputRow">
-            <input type="text" id="itemInput" placeholder="Add a grocery item" autocomplete="off" />
-            <button id="button">Add</button>
-        </div>
-        <button id="deletemainlist">Clear Main List</button>
-        <ul id="groceries"></ul>
+  <h1 id="pantryPlanner">Pantry Planner</h1>
+  
+  <div class="container">
+    <button id="undo-btn">Undo</button>
+    <h2 class="section-title">Main List</h2>
+    
+    <div id="inputRow">
+      <input type="text" id="itemInput" placeholder="Add a grocery item" autocomplete="off" />
+      <button id="button">Add</button>
     </div>
-    <div id="struckListContainer">
-        <button id="del-all-btn">Delete Acquired Items</button>
-        <h2 id="struckText">Acquired Items</h2>
-        <ul id="struckList"></ul>
-    </div>
-    <button id="darkModeToggle">Dark Mode</button>
-    <script src="groceries.js"></script>
+    
+    <button id="deletemainlist">Clear Main List</button>
+    <ul id="groceries"></ul>
+  </div>
+  
+  <div id="struckListContainer">
+    <button id="del-all-btn">Delete Acquired Items</button>
+    <!-- Fix: Added section-title class so text formatting and dark mode scaling render correctly -->
+    <h2 id="struckText" class="section-title">Acquired Items</h2>
+    <ul id="struckList"></ul>
+  </div>
+  
+  <button id="darkModeToggle">Dark Mode</button>
+  
+  <script src="groceries.js"></script>
 </body>
 </html>

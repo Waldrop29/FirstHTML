@@ -1,370 +1,388 @@
-/*(animations)*/
+/* --- Theme Variables --- */
+:root {
+  --strike-flash: #fffbe6;
+}
+
+body.dark-mode {
+  --strike-flash: #3a3f42;
+}
+
+/* --- Animations --- */
 .fade-in {
-    opacity: 0;
-    animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .fade-out {
-    animation: fadeOut 0.3s ease-out forwards;
+  animation: fadeOut 0.3s ease-out forwards;
 }
 
 @keyframes fadeOut {
-    from { opacity: 1; transform: translateX(0); }
-    to { opacity: 0; transform: translateX(50px); }
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(50px); }
 }
 
-/*(struck-through animation)*/
+/* --- Struck-Through Animation --- */
 .struck-animate {
-    animation: strikeFade 0.7s ease;
+  animation: strikeFade 0.7s ease;
 }
 
 @keyframes strikeFade {
-    0% { opacity: 1; transform: scale(1) rotate(0deg); background: #fffbe6; }
-    40% { opacity: 0.7; transform: scale(1.05) rotate(-2deg); background: #fffbe6; }
-    100% { opacity: 0.5; transform: scale(1) rotate(0deg); background: transparent; }
+  0% { opacity: 1; transform: scale(1) rotate(0deg); background: var(--strike-flash); }
+  40% { opacity: 0.7; transform: scale(1.05) rotate(-2deg); background: var(--strike-flash); }
+  100% { opacity: 0.5; transform: scale(1) rotate(0deg); background: transparent; }
 }
 
-/*(base layout)*/
+/* --- Base Layout --- */
 html, body {
-    background: #f8f9fa;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    width: 100%;
-    text-align: center;
+  background: #f8f9fa;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
 }
 
 #pantryPlanner {
-    color: #343a40;
-    margin-top: 20px;
-    font-size: 2.5em;
-    letter-spacing: 1.5px;
-    font-weight: bold;
+  color: #343a40;
+  margin-top: 20px;
+  font-size: 2.5em;
+  letter-spacing: 1.5px;
+  font-weight: bold;
 }
 
-/*(main container)*/
+/* --- Main Containers --- */
 .container {
-    max-width: 400px;
-    margin: 40px auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    padding: 32px 20px 24px 20px;
+  max-width: 400px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 32px 20px 24px 20px;
+  box-sizing: border-box;
 }
 
-/*(section titles)*/
+#struckListContainer {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px 12px 20px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+}
+
 .section-title {
-    margin: 0 0 12px 0;
-    font-size: 1.2em;
-    color: #343a40;
+  margin: 0 0 12px 0;
+  font-size: 1.2em;
+  color: #343a40;
 }
 
-/*(input row)*/
+/* --- Input Row --- */
 #inputRow {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    justify-content: center;
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
 #itemInput {
-    flex: 1;
-    padding: 14px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    font-size: 1.1em;
-    text-align: center;
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  font-size: 1.1em;
+  text-align: center;
+  min-width: 0;
 }
 
 #itemInput:focus {
-    border-color: #007bff;
-    outline: none;
+  border-color: #007bff;
+  outline: none;
 }
 
 #button {
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 14px 18px;
-    font-size: 1.1em;
-    cursor: pointer;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 14px 18px;
+  font-size: 1.1em;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 #button:hover {
-    background: #0056b3;
+  background: #0056b3;
 }
 
-/*(main list)*/
-#groceries {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
+/* --- Lists Layout --- */
+#groceries, #struckList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
 }
 
 #groceries li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid #eee;
-    font-size: 1.1em;
-    cursor: pointer;
-    gap: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 1.1em;
+  cursor: pointer;
+  gap: 8px;
 }
 
-/* quantity dropdowns */
+#struckList li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+#struckList li:hover {
+  opacity: 0.8;
+}
+
 .qty-select {
-    padding: 6px 8px;
-    font-size: 1em;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    background: #fff;
-    color: #333;
-    cursor: pointer;
+  padding: 6px 8px;
+  font-size: 1em;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
 }
 
 .qty-select:hover {
-    border-color: #007bff;
+  border-color: #007bff;
 }
 
-/*(buttons)*/
+/* --- Action Buttons --- */
 #undo-btn {
-    background: #ffc107;
-    color: #222;
-    border: none;
-    border-radius: 24px;
-    padding: 12px 22px;
-    font-size: 1.1em;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto 18px auto;
+  background: #ffc107;
+  color: #222;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 18px auto;
+  cursor: pointer;
 }
 
 #undo-btn:hover {
-    background: #e0a800;
+  background: #e0a800;
 }
 
 #deletemainlist,
 #del-all-btn {
-    background: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 24px;
-    padding: 12px 22px;
-    font-size: 1.1em;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 18px auto 0 auto;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 22px;
+  font-size: 1.1em;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 18px auto 0 auto;
+  cursor: pointer;
 }
 
 #deletemainlist:hover,
 #del-all-btn:hover {
-    background: #b52a37;
+  background: #b52a37;
 }
 
-/*(delete button inside list)*/
 .delete-btn {
-    background: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 16px;
-    cursor: pointer;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
 }
 
 .delete-btn:hover {
-    background: #b52a37;
+  background: #b52a37;
 }
 
-/*(edit button)*/
 .edit-btn {
-    background: transparent;
-    border: none;
-    padding: 6px;
-    margin-left: 8px;
-    cursor: pointer;
-    color: #007bff;
+  background: transparent;
+  border: none;
+  padding: 6px;
+  margin-left: 8px;
+  cursor: pointer;
+  color: #007bff;
 }
 
 .edit-btn:hover {
-    background: rgba(0,0,0,0.04);
+  background: rgba(0,0,0,0.04);
 }
 
 .edit-icon {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
 }
 
-/*(inline edit input)*/
 .edit-input {
-    flex: 1;
-    padding: 10px 12px;
-    font-size: 1.05em;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    text-align: center;
+  flex: 1;
+  padding: 10px 12px;
+  font-size: 1.05em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
 }
 
 .edit-input:focus {
-    border-color: #007bff;
-    outline: none;
+  border-color: #007bff;
+  outline: none;
 }
 
-/*(struck list container)*/
-#struckListContainer {
-    background: #fff;
-    border-radius: 10px;
-    padding: 16px 20px 12px 20px;
-    max-width: 400px;
-    margin: 20px auto;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+/* --- Theme Transitions --- */
+body, .container, #struckListContainer, input, select, button {
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-#struckList {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: left;
-}
-
-/*(dark mode)*/
+/* --- Dark Mode Style Rules --- */
 body.dark-mode {
-    background: #181a1b;
-    color: #f1f3f4;
+  background: #181a1b;
+  color: #f1f3f4;
 }
 
 body.dark-mode .container,
 body.dark-mode #struckListContainer {
-    background: #23272a;
-    color: #f1f3f4;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  background: #23272a;
+  color: #f1f3f4;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
 
 body.dark-mode #pantryPlanner,
 body.dark-mode .section-title {
-    color: #f1f3f4;
+  color: #f1f3f4;
 }
 
 body.dark-mode #itemInput {
-    background: #2b2f31;
-    color: #f1f3f4;
-    border-color: #555;
+  background: #2b2f31;
+  color: #f1f3f4;
+  border-color: #555;
 }
 
 body.dark-mode #itemInput:focus {
-    border-color: #66aaff;
+  border-color: #66aaff;
 }
 
 body.dark-mode #button {
-    background: #66aaff;
-    color: #181a1b;
+  background: #66aaff;
+  color: #181a1b;
 }
 
 body.dark-mode #button:hover {
-    background: #3388cc;
+  background: #3388cc;
 }
 
 body.dark-mode #groceries li {
-    border-bottom: 1px solid #333;
-    color: #f1f3f4;
+  border-bottom: 1px solid #333;
+  color: #f1f3f4;
 }
 
 body.dark-mode .qty-select {
-    background: #2b2f31;
-    color: #f1f3f4;
-    border-color: #555;
+  background: #2b2f31;
+  color: #f1f3f4;
+  border-color: #555;
 }
 
 body.dark-mode .delete-btn {
-    background: #b52a37;
+  background: #b52a37;
 }
 
 body.dark-mode .delete-btn:hover {
-    background: #dc3545;
+  background: #dc3545;
 }
 
 body.dark-mode .edit-btn {
-    color: #66aaff;
+  color: #66aaff;
 }
 
 body.dark-mode .edit-input {
-    background: #2b2f31;
-    color: #f1f3f4;
-    border-color: #555;
+  background: #2b2f31;
+  color: #f1f3f4;
+  border-color: #555;
 }
 
 body.dark-mode #undo-btn {
-    background: #e0a800;
-    color: #222;
+  background: #e0a800;
+  color: #222;
 }
 
 body.dark-mode #undo-btn:hover {
-    background: #cc9901;
+  background: #cc9901;
 }
 
 body.dark-mode #deletemainlist,
 body.dark-mode #del-all-btn {
-    background: #b52a37;
+  background: #b52a37;
 }
 
 body.dark-mode #deletemainlist:hover,
 body.dark-mode #del-all-btn:hover {
-    background: #dc3545;
+  background: #dc3545;
 }
 
-/*(dark mode toggle)*/
+/* --- Floating Utilities --- */
 #darkModeToggle {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: #eee;
-    color: #222;
-    border: none;
-    border-radius: 24px;
-    padding: 12px 22px;
-    cursor: pointer;
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #eee;
+  color: #222;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 22px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 1000;
 }
 
 body.dark-mode #darkModeToggle {
-    background: #23272a;
-    color: #f1f3f4;
-    border: 1px solid #444;
+  background: #23272a;
+  color: #f1f3f4;
+  border: 1px solid #444;
 }
 
-/*(responsive)*/
+/* --- Responsive Adaptations --- */
 @media (max-width: 500px) {
-    .container {
-        margin: 0;
-        min-height: 100vh;
-        border-radius: 0;
-        box-shadow: none;
-    }
+  body {
+    padding-bottom: 80px; /* Room for fixed layout toggle */
+  }
 
-    #inputRow {
-        flex-direction: column;
-    }
+  .container {
+    margin: 0 auto;
+    min-height: initial;
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+  }
 
-    #darkModeToggle {
-        bottom: 12px;
-        right: 12px;
-    }
-}
+  #struckListContainer {
+    border-radius: 0;
+    box-shadow: none;
+    width: 100%;
+    margin-top: 0;
+  }
 
-body, .container, #struckListContainer {
-    transition: background 0.3s, color 0.3s;
-}
-
-#struckList li:hover {
-    opacity: 0.8;
+  #darkModeToggle {
+    bottom: 12px;
+    right: 12px;
+  }
 }
