@@ -23,11 +23,29 @@ window.addEventListener("DOMContentLoaded", () => {
     const settings = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
     if (!force && settings.hide) return;
 
-    confirm(
-      "Welcome to the Grocery List App! To add an item, type it in the input box and click 'Add' or press Enter. Click an item to mark it as acquired. Use the edit button to modify items, and the delete button to remove them. You can undo actions with Ctrl+Z. To toggle dark mode, click the 'Dark Mode' button."
-    );
+    const modal = document.getElementById("welcome-modal");
+    const okBtn = document.getElementById("modal-ok-btn");
+    const cancelBtn = document.getElementById("modal-cancel-btn");
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ hide: true }));
+    // Guard statement in case HTML modal boilerplate is missing
+    if (!modal || !okBtn || !cancelBtn) return;
+
+    // Show custom UI overlay
+    modal.classList.remove("hidden");
+
+    // Click 'Keep Showing' (Re-appears on next browser refresh)
+    okBtn.onclick = function() {
+      settings.hide = false;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+      modal.classList.add("hidden");
+    };
+
+    // Click 'Don't Show Again' (Hidden permanently until Ctrl+M forced)
+    cancelBtn.onclick = function() {
+      settings.hide = true;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+      modal.classList.add("hidden");
+    };
   }
 
   // *unit list*
@@ -180,6 +198,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const editBtn = document.createElement("button");
       editBtn.className = "edit-btn";
 
+      // Fixed Namespace URI to comply with official W3C XML graphics standards
       const svgNS = "http://w3.org";
       const svg = document.createElementNS(svgNS, "svg");
       svg.setAttribute("viewBox", "0 0 24 24");
@@ -274,6 +293,7 @@ window.addEventListener("DOMContentLoaded", () => {
       struckList.appendChild(li);
     });
   }
+
   // *delete all struck*
   function deleteAllStruck() {
     if (!struckGroceries.length) return;

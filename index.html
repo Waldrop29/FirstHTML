@@ -36,5 +36,21 @@
   <button id="darkModeToggle">Dark Mode</button>
   
   <script src="groceries.js"></script>
+  <div id="welcome-modal" class="modal-overlay hidden">
+  <div class="modal-content">
+    <h2>🛒 Welcome to Grocery List!</h2>
+    <ul class="modal-instructions">
+      <li><strong>Add items:</strong> Type and click 'Add' or press Enter.</li>
+      <li><strong>Mark acquired:</strong> Click directly on the item.</li>
+      <li><strong>Edit/Delete:</strong> Use the buttons next to the item.</li>
+      <li><strong>Undo actions:</strong> Press <kbd>Ctrl</kbd> + <kbd>Z</kbd>.</li>
+      <li><strong>Theme:</strong> Toggle dark mode with the 'Dark Mode' button.</li>
+    </ul>
+    <div class="modal-actions">
+      <button id="modal-ok-btn" class="btn btn-primary">Keep Showing</button>
+      <button id="modal-cancel-btn" class="btn btn-secondary">Don't Show Again</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
