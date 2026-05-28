@@ -1,4 +1,4 @@
-const CACHE_NAME = "pantry-cache-v6";
+const CACHE_NAME = "pantry-cache-v7";
 
 const ASSETS = [
   "/Pantry-Planner/",

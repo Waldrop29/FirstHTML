@@ -226,9 +226,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
         function saveEdit() {
           if (isSaving) return;
+          isSaving = true;
           const newVal = inputEdit.value.trim();
           if (!newVal) {
             alert("Item text cannot be empty");
+            isSaving = false;
             inputEdit.focus();
             return;
           }
