@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", () => {
       editBtn.className = "edit-btn";
 
       // Fixed Namespace URI to comply with official W3C XML graphics standards
-      const svgNS = "http://w3.org";
+      const svgNS = "http://www.w3.org";
       const svg = document.createElementNS(svgNS, "svg");
       svg.setAttribute("viewBox", "0 0 24 24");
       svg.classList.add("edit-icon");
