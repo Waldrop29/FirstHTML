@@ -52,7 +52,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const UNIT_LIST = [
     "packets", "cartons", "lbs", "oz", "doz", "cups",
     "tbsp", "tsp", "gallons", "liters",
-    "bags", "bottles", "jars", "cans", "boxes", "miscellaneous",
+    "bags", "bottles", "jars", "cans", "boxes", "Miscellaneous",
     "Pieces", "Spoons", "Slices", "Cloves", "Heads", "Strips", "Sprigs"
   ];
 
