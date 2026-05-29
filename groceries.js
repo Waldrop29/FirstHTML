@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", () => {
       editBtn.className = "edit-btn";
 
       // Fixed Namespace URI to comply with official W3C XML graphics standards
-      const svgNS = "http://www.w3.org";
+      const svgNS = "http://www.w3.org/2000/svg";
       const svg = document.createElementNS(svgNS, "svg");
       svg.setAttribute("viewBox", "0 0 24 24");
       svg.classList.add("edit-icon");
@@ -230,11 +230,9 @@ window.addEventListener("DOMContentLoaded", () => {
           const newVal = inputEdit.value.trim();
           if (!newVal) {
             alert("Item text cannot be empty");
-            isSaving = false;
-            inputEdit.focus();
+            cancelEdit();
             return;
           }
-          const oldVal = groceries[idx].text;
           pushHistory();
           groceries[idx].text = newVal;
           console.log("edited " + oldVal + " to " + newVal);
@@ -349,5 +347,7 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/Pantry-Planner/sw.js');
+  navigator.serviceWorker.register("./sw.js").catch((error) => {
+    console.error("Service Worker registration failed:", error);
+  });
 }
