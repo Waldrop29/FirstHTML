@@ -230,12 +230,9 @@ window.addEventListener("DOMContentLoaded", () => {
           const newVal = inputEdit.value.trim();
           if (!newVal) {
             alert("Item text cannot be empty");
-            isSaving = false;
-            inputEdit.focus();
+            cancelEdit();
             return;
           }
-          const oldVal = groceries[idx].text;
-          isSaving = true;
           pushHistory();
           groceries[idx].text = newVal;
           console.log("edited " + oldVal + " to " + newVal);
