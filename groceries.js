@@ -52,7 +52,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const UNIT_LIST = [
     "packets", "cartons", "lbs", "oz", "doz", "cups",
     "tbsp", "tsp", "gallons", "liters",
+<<<<<<< HEAD
     "bags", "bottles", "jars", "cans", "boxes", "miscellaneous"
+=======
+    "bags", "bottles", "jars", "cans", "boxes", "Miscellaneous",
+    "Pieces", "Spoons", "Slices", "Cloves", "Heads", "Strips", "Sprigs"
+>>>>>>> 69f09d035e89a140fc7f5a913412443ce0836fdd
   ];
 
   // *load saved lists*
@@ -195,6 +200,11 @@ window.addEventListener("DOMContentLoaded", () => {
         saveAndRender(false);
       });
 
+      const qtyControls = document.createElement("div");
+      qtyControls.className = "qty-controls";
+      qtyControls.appendChild(qtyNumber);
+      qtyControls.appendChild(qtyUnit);
+
       const editBtn = document.createElement("button");
       editBtn.className = "edit-btn";
 
@@ -219,7 +229,9 @@ window.addEventListener("DOMContentLoaded", () => {
         inputEdit.value = item.text;
         inputEdit.className = "edit-input";
 
-        li.replaceChild(inputEdit, textSpan);
+        const oldVal = item.text;
+
+        itemRow.replaceChild(inputEdit, textSpan);
         inputEdit.focus();
 
         let isSaving = false;
@@ -266,11 +278,18 @@ window.addEventListener("DOMContentLoaded", () => {
         saveAndRender(false);
       });
 
-      li.appendChild(textSpan);
-      li.appendChild(qtyNumber);
-      li.appendChild(qtyUnit);
-      li.appendChild(editBtn);
-      li.appendChild(delBtn);
+      const itemRow = document.createElement("div");
+      itemRow.className = "item-row";
+      itemRow.appendChild(textSpan);
+      itemRow.appendChild(qtyControls);
+
+      const itemActions = document.createElement("div");
+      itemActions.className = "item-actions";
+      itemActions.appendChild(editBtn);
+      itemActions.appendChild(delBtn);
+
+      li.appendChild(itemRow);
+      li.appendChild(itemActions);
       list.appendChild(li);
     });
 
@@ -325,12 +344,18 @@ window.addEventListener("DOMContentLoaded", () => {
 
   delAllBtn.addEventListener("click", deleteAllStruck);
 
-  delMainBtn.addEventListener("click", () => {
+  function clearMainList() {
     if (!groceries.length) return;
-    if (!confirm("Clear the main list?")) return;
+    if (!confirm("Delete all items in main list?")) return;
     pushHistory();
     groceries = [];
     saveAndRender(false);
+  }
+
+  delMainBtn.addEventListener("click", clearMainList);
+
+  window.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "x") clearMainList();
   });
 
   darkModeBtn.addEventListener("click", () =>
