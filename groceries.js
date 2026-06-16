@@ -52,12 +52,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const UNIT_LIST = [
     "packets", "cartons", "lbs", "oz", "doz", "cups",
     "tbsp", "tsp", "gallons", "liters",
-<<<<<<< HEAD
-    "bags", "bottles", "jars", "cans", "boxes", "miscellaneous"
-=======
     "bags", "bottles", "jars", "cans", "boxes", "Miscellaneous",
     "Pieces", "Spoons", "Slices", "Cloves", "Heads", "Strips", "Sprigs"
->>>>>>> 69f09d035e89a140fc7f5a913412443ce0836fdd
   ];
 
   // *load saved lists*
