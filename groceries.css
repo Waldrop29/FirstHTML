@@ -139,6 +139,43 @@ html, body {
   font-size: 1.1em;
   cursor: pointer;
   gap: 8px;
+  flex-wrap: wrap;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.item-text {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.qty-controls .qty-select {
+  min-width: 0;
+}
+
+.item-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
 }
 
 #struckList li {
@@ -219,7 +256,7 @@ html, body {
 .edit-btn {
   background: transparent;
   border: none;
-  padding: 6px;
+  padding: 6px 10px;
   margin-left: 8px;
   cursor: pointer;
   color: #007bff;
@@ -227,6 +264,10 @@ html, body {
 
 .edit-btn:hover {
   background: rgba(0,0,0,0.04);
+}
+
+.delete-btn {
+  padding: 6px 12px;
 }
 
 .edit-icon {
