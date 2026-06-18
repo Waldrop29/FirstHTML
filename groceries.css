@@ -256,11 +256,8 @@ html, body {
 .edit-btn {
   background: transparent;
   border: none;
-<<<<<<< HEAD
   padding: 6px 10px;
   margin-left: 8px;
-=======
->>>>>>> recover/stash-0
   cursor: pointer;
   color: #007bff;
   
@@ -282,15 +279,10 @@ html, body {
   background: rgba(0, 0, 0, 0.04);
 }
 
-<<<<<<< HEAD
 .delete-btn {
   padding: 6px 12px;
 }
 
-=======
-/* Bulletproof sizing for the SVG to prevent it collapsing to 0px */
-.edit-btn svg,
->>>>>>> recover/stash-0
 .edit-icon {
   width: 20px !important;
   height: 20px !important;
