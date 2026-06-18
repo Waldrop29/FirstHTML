@@ -240,11 +240,6 @@ window.addEventListener("DOMContentLoaded", () => {
             cancelEdit();
             return;
           }
-<<<<<<< HEAD
-=======
-          const oldVal = groceries[idx].text;
-          isSaving = true;
->>>>>>> recover/stash-0
           pushHistory();
           groceries[idx].text = newVal;
           console.log("edited " + oldVal + " to " + newVal);
@@ -351,7 +346,6 @@ window.addEventListener("DOMContentLoaded", () => {
     pushHistory();
     groceries = [];
     saveAndRender(false);
-<<<<<<< HEAD
   }
 
   delMainBtn.addEventListener("click", clearMainList);
@@ -359,12 +353,6 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "x") clearMainList();
   });
-=======
-    console.log("main cleared");
-  }
-
-  delMainBtn.addEventListener("click", clearMainList);
->>>>>>> recover/stash-0
 
   darkModeBtn.addEventListener("click", () =>
     setDarkMode(!document.body.classList.contains("dark-mode"))
@@ -389,8 +377,4 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register("./sw.js").catch((error) => {
     console.error("Service Worker registration failed:", error);
   });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> recover/stash-0
