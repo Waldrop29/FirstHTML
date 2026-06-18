@@ -1,13 +1,17 @@
+<<<<<<< HEAD
 const CACHE_NAME = "pantry-cache-v8";
+=======
+const CACHE_NAME = "pantry-cache-v7";
+>>>>>>> recover/stash-0
 
 const ASSETS = [
-  "/Pantry-Planner/",
-  "/Pantry-Planner/index.html",
-  "/Pantry-Planner/manifest.json",
-  "/Pantry-Planner/groceries.js",
-  "/Pantry-Planner/groceries.css",
-  "/Pantry-Planner/icon-192.png",
-  "/Pantry-Planner/icon-512.png"
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./groceries.js",
+  "./groceries.css",
+  "./icon-192.png",
+  "./icon-512.png"
 ];
 
 // Install: cache essential files
@@ -58,7 +62,7 @@ self.addEventListener("fetch", (event) => {
           // Offline fallback
           return (
             cachedResponse ||
-            caches.match("/Pantry-Planner/index.html")
+            caches.match("./index.html")
           );
         });
 
