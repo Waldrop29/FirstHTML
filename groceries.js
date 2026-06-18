@@ -100,10 +100,9 @@ window.addEventListener("DOMContentLoaded", () => {
   // *undo*
   function undo() {
     if (!groceriesHistory.length && !struckHistory.length) return;
-
     if (groceriesHistory.length) groceries = JSON.parse(groceriesHistory.pop());
     if (struckHistory.length) struckGroceries = JSON.parse(struckHistory.pop());
-
+    console.log("undone");
     saveAndRender(false);
   }
 
@@ -122,7 +121,6 @@ window.addEventListener("DOMContentLoaded", () => {
   function addItem() {
     const val = input.value.trim();
     if (!val) return;
-
     pushHistory();
     groceries.push({
       text: val,
@@ -133,6 +131,7 @@ window.addEventListener("DOMContentLoaded", () => {
     input.value = "";
     saveAndRender(false);
     input.focus();
+    console.log("added " + val);
   }
   // *render main list*
   function renderList() {
@@ -241,6 +240,11 @@ window.addEventListener("DOMContentLoaded", () => {
             cancelEdit();
             return;
           }
+<<<<<<< HEAD
+=======
+          const oldVal = groceries[idx].text;
+          isSaving = true;
+>>>>>>> recover/stash-0
           pushHistory();
           groceries[idx].text = newVal;
           console.log("edited " + oldVal + " to " + newVal);
@@ -272,6 +276,7 @@ window.addEventListener("DOMContentLoaded", () => {
         pushHistory();
         groceries.splice(idx, 1);
         saveAndRender(false);
+        console.log("deleted " + item.text);
       });
 
       const itemRow = document.createElement("div");
@@ -314,10 +319,10 @@ window.addEventListener("DOMContentLoaded", () => {
   function deleteAllStruck() {
     if (!struckGroceries.length) return;
     if (!confirm("Delete all acquired items?")) return;
-
     pushHistory();
     struckGroceries = [];
     saveAndRender(false);
+    console.log("struck cleared");
   }
 
   // *dark mode*
@@ -346,6 +351,7 @@ window.addEventListener("DOMContentLoaded", () => {
     pushHistory();
     groceries = [];
     saveAndRender(false);
+<<<<<<< HEAD
   }
 
   delMainBtn.addEventListener("click", clearMainList);
@@ -353,10 +359,22 @@ window.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "x") clearMainList();
   });
+=======
+    console.log("main cleared");
+  }
+
+  delMainBtn.addEventListener("click", clearMainList);
+>>>>>>> recover/stash-0
 
   darkModeBtn.addEventListener("click", () =>
     setDarkMode(!document.body.classList.contains("dark-mode"))
   );
+
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+      clearMainList();
+    }
+  })
 
   document.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.key.toLowerCase() === "z") undo();
@@ -371,4 +389,8 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register("./sw.js").catch((error) => {
     console.error("Service Worker registration failed:", error);
   });
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> recover/stash-0

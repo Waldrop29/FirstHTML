@@ -256,23 +256,47 @@ html, body {
 .edit-btn {
   background: transparent;
   border: none;
+<<<<<<< HEAD
   padding: 6px 10px;
   margin-left: 8px;
+=======
+>>>>>>> recover/stash-0
   cursor: pointer;
   color: #007bff;
+  
+  /* Give the button a standard container size */
+  width: 32px;
+  height: 32px;
+  
+  /* Center the inner SVG perfectly */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Safe spacing next to your quantities */
+  margin-left: 8px;
+  border-radius: 4px; /* Added for a cleaner hover shape */
 }
 
 .edit-btn:hover {
-  background: rgba(0,0,0,0.04);
+  background: rgba(0, 0, 0, 0.04);
 }
 
+<<<<<<< HEAD
 .delete-btn {
   padding: 6px 12px;
 }
 
+=======
+/* Bulletproof sizing for the SVG to prevent it collapsing to 0px */
+.edit-btn svg,
+>>>>>>> recover/stash-0
 .edit-icon {
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  display: inline-block !important;
   fill: currentColor;
 }
 
