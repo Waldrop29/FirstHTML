@@ -53,7 +53,7 @@ window.addEventListener("DOMContentLoaded", () => {
     "packets", "cartons", "lbs", "oz", "doz", "cups",
     "tbsp", "tsp", "gallons", "liters",
     "bags", "bottles", "jars", "cans", "boxes", "Miscellaneous",
-    "Pieces", "Spoons", "Slices", "Cloves", "Heads", "Strips", "Sprigs"
+    "Pieces", "Spoons", "Slices", "Cloves", "Heads", "Strips", "Sprigs", "Bulbs", "Bunches", "Feet", "Inches", "Yards", "Meters", "Centimeters", ""
   ];
 
   // *load saved lists*
@@ -100,10 +100,9 @@ window.addEventListener("DOMContentLoaded", () => {
   // *undo*
   function undo() {
     if (!groceriesHistory.length && !struckHistory.length) return;
-
     if (groceriesHistory.length) groceries = JSON.parse(groceriesHistory.pop());
     if (struckHistory.length) struckGroceries = JSON.parse(struckHistory.pop());
-
+    console.log("undone");
     saveAndRender(false);
   }
 
@@ -122,7 +121,6 @@ window.addEventListener("DOMContentLoaded", () => {
   function addItem() {
     const val = input.value.trim();
     if (!val) return;
-
     pushHistory();
     groceries.push({
       text: val,
@@ -133,6 +131,7 @@ window.addEventListener("DOMContentLoaded", () => {
     input.value = "";
     saveAndRender(false);
     input.focus();
+    console.log("added " + val);
   }
   // *render main list*
   function renderList() {
@@ -272,6 +271,7 @@ window.addEventListener("DOMContentLoaded", () => {
         pushHistory();
         groceries.splice(idx, 1);
         saveAndRender(false);
+        console.log("deleted " + item.text);
       });
 
       const itemRow = document.createElement("div");
@@ -314,10 +314,10 @@ window.addEventListener("DOMContentLoaded", () => {
   function deleteAllStruck() {
     if (!struckGroceries.length) return;
     if (!confirm("Delete all acquired items?")) return;
-
     pushHistory();
     struckGroceries = [];
     saveAndRender(false);
+    console.log("struck cleared");
   }
 
   // *dark mode*
@@ -357,6 +357,12 @@ window.addEventListener("DOMContentLoaded", () => {
   darkModeBtn.addEventListener("click", () =>
     setDarkMode(!document.body.classList.contains("dark-mode"))
   );
+
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+      clearMainList();
+    }
+  })
 
   document.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.key.toLowerCase() === "z") undo();
