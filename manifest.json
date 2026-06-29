@@ -2,22 +2,13 @@
   "name": "Pantry Planner",
   "short_name": "Pantry",
   "description": "A fast, simple grocery list app with dark mode and offline support.",
-<<<<<<< HEAD
   "start_url": "/Pantry-Planner/",
   "scope": "/Pantry-Planner/",
-=======
-  "start_url": "./",
-  "scope": "./",
->>>>>>> recover/stash-0
   "display": "standalone",
   "background_color": "#f8f9fa",
   "theme_color": "#007bff",
   "orientation": "portrait",
-<<<<<<< HEAD
-  "id": "/Pantry-Planner/",
-=======
   "id": "io.github.waldrop29.twa",
->>>>>>> recover/stash-0
   "icons": [
     {
       "src": "icon-192.png",
