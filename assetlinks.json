@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.waldrop29.twa",
+        "sha256_cert_fingerprints": ["DE:6C:27:0F:C5:CA:B6:07:D1:BD:AA:FE:CD:39:C5:A3:9C:AC:C6:16:BF:83:50:60:8F:20:C7:FA:33:2E:4A:9A"]
+      }
+    }]
