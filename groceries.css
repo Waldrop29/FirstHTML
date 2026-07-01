@@ -443,6 +443,7 @@ body.dark-mode #darkModeToggle {
     right: 12px;
   }
 }
+
 /* Dark background overlay */
 .modal-overlay {
   position: fixed;
@@ -457,6 +458,11 @@ body.dark-mode #darkModeToggle {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  pointer-events: none;
+}
+
+.modal-overlay:not(.hidden) {
+  pointer-events: auto;
 }
 
 /* Modal box */
@@ -526,4 +532,24 @@ kbd {
 /* Helper class to hide the modal */
 .hidden {
   display: none !important;
+}
+
+/* Dark mode styles for modal */
+body.dark-mode .modal-content {
+  background: #23272a;
+  color: #f1f3f4;
+}
+
+body.dark-mode .modal-content h2 {
+  color: #f1f3f4;
+}
+
+body.dark-mode .modal-instructions li {
+  color: #b0b4b8;
+}
+
+body.dark-mode kbd {
+  background: #2b2f31;
+  border-color: #555;
+  color: #f1f3f4;
 }
