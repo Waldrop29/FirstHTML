@@ -312,7 +312,7 @@ body, .container, #struckListContainer, input, select, button {
 }
 
 /* --- Dark Mode Style Rules --- */
-body.dark-mode {
+body.dark-mode,body.dark-mode html {
   background: #181a1b;
   color: #f1f3f4;
 }
