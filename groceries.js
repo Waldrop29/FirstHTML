@@ -164,7 +164,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const qtyNumber = document.createElement("select");
       qtyNumber.className = "qty-select";
 
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 20; i++) {
         const opt = document.createElement("option");
         opt.value = i;
         opt.textContent = i;
