@@ -63,7 +63,7 @@ window.addEventListener("DOMContentLoaded", () => {
         return { text: item, qtyNumber: 1, qtyUnit: "packets" };
       }
       if (item.qtyNumber === undefined) item.qtyNumber = 1;
-      if (item.qtyUnit === undefined) item.qtyUnit = "packets";
+      if (item.qtyUnit === undefined) item.qtyUnit = "";
       return item;
     });
 
