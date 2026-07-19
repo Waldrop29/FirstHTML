@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 const CACHE_NAME = "pantry-cache-v8";
-=======
-const CACHE_NAME = "pantry-cache-v7";
->>>>>>> recover/stash-0
 
 const ASSETS = [
   "./",
